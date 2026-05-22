@@ -13,7 +13,7 @@ import jakarta.persistence.Table;
 @Table(name = "employees")
 public class Employee {
 
-    @Id
+    @Id // tells the db that this is the primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "emp_ID")
     private Integer empId; // primary key
