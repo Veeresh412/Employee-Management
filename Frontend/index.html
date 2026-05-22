@@ -1,0 +1,445 @@
+    <!Doctype html>
+    <html>
+    <head>
+        <title>Employee Management System</title>
+        <style>
+            body
+            {
+                margin: 0;
+                width: 100%;
+                background: #ffffff;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+            .navbar
+            {
+                height: 50px;
+                display: flex;
+                justify-content:center;
+                align-items: center;
+                gap: 100px;
+                margin: 0;
+                border: none;
+                border-radius: 0;
+                background: #97144d;
+            }
+            .navbar a
+            {
+                text-decoration: none;
+                font-size: 20px;
+                font-weight: bold;
+                padding: 0.5%;
+                color: white;
+                transition: 0.3s;
+            }
+            .navbar a:hover
+            {
+                transform: translateY(-3px) scale(1.2);
+                color: #d1d5db;
+            }
+            .container 
+            {
+                width: 85%;
+                max-width: 1200px;
+                height: 50%;
+                margin: 40px auto;
+                background: #f5f5f5;
+                padding: 40px;
+                border-radius: 20px;
+                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            }
+            h1
+            {
+                margin: 0;
+                text-align: center;
+                background: transparent;
+                font-size: 2.2rem;
+                color: #97144d;
+                letter-spacing: 1px;
+                margin-bottom: 40px;
+                padding: 12px 0;
+                border: none;
+                border-bottom: 3px solid #97144d;
+                border-radius: 0;
+            }
+            .form-grid
+            {
+                display: grid; 
+                grid-template-columns: 1fr 1fr; 
+                gap: 35px; 
+                margin-bottom: 20px; }
+
+            input, select { 
+                width: 100%;
+                padding: 14px 16px;
+                border: 1px solid #d1d5db;
+                border-left: 3px solid #97144d;
+                border-radius: 10px;
+                font-size: 16px;
+                transition: 0.3s ease;
+                background: #f9fafb; 
+                margin: 3px;
+            }
+
+            input::placeholder {
+                color: #aaaaaa;
+                font-style: italic;
+            }
+
+            input:focus,
+            select:focus 
+            {
+                border-color: #97144d;
+                outline: none;
+                box-shadow: 0 0 0 4px rgba(151, 20, 77, 0.15);
+                background: white;
+            }   
+            .form_question
+            {
+                display: block;
+                margin-bottom: 5px;
+                font-weight: 500;
+                color: #333333;
+                font-size: 20px;
+            }
+            .child
+            {
+                margin: 10px;
+            }
+            input
+            {
+                padding:5px;
+            }
+           .buttonshi
+            {
+                grid-column: 1 / 3;
+                display: flex;
+                justify-content: center;
+                margin-top: 20px;
+            }
+
+            .buttonshi button
+            {
+                background: linear-gradient(to right, #97144d, #c94f7c);
+                color: white;
+                border: none;
+                padding: 14px 28px;
+                border-radius: 10px;
+                font-size: 16px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                width: 250px;
+                height: 50px;
+                box-shadow: 0 4px 12px rgba(151, 20, 77, 0.3);
+            }
+            .buttonshi button:hover
+            {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 16px rgba(151, 20, 77, 0.4);
+            }
+
+            .buttonshi button:active
+            {
+                transform: scale(0.98);
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <nav class="navbar">
+            <a href="index.html">Home</a>
+            <a href="page2.html">View Table</a>
+            <a href="#">About Us</a>
+            <a href="#">Contact Us</a>
+        </nav>
+
+
+        <div class="container">
+
+        <h1>Employee Management System</h1>
+
+        <div>
+
+            <form class="form-grid" id="employeeForm">
+
+                <div class="child">
+                    <label class="form_question">Name:</label>
+                    <input type="text" id="name" placeholder="John Doe etc." required>
+                </div>
+
+                <div class="child">
+                    <label class="form_question">Date of Birth:</label>
+                    <input type="date" id="birthdate" placeholder="John Doe etc." required>
+                </div>
+
+
+                <div class="child">
+                    <label class="form_question">Gender:</label>
+                    <select id="gender" required>
+                    <option value="" disabled selected>Select Gender</option>
+                    <option value="M">Male (M)</option>
+                    <option value="F">Female (F)</option>
+                </select>
+                </div>
+
+                <div class="child">
+                    <label class="form_question">Hobbies:</label>
+                    <input type="text" id="hobbies" placeholder="Hobbies (e.g., Gaming, Reading)">
+                </div>
+
+                <div class="child">
+                    <label class="form_question">Address:</label>
+                    <input type="text" id="address1" placeholder="Address Line 1" required>
+                    <input type="text" id="address2" placeholder="Address Line 2">
+                    <input type="text" id="city" placeholder="City" required>
+                    <input type="number" id="pincode" placeholder="Pincode" required>
+                </div>
+
+                <div class="child">
+                    <label class="form_question">PAN:</label>
+                    <input type="text" id="pan" placeholder="PAN Number (e.g., ABCDE1234F)" minlength="10" maxlength="10" required>
+                </div>
+
+                <div class="child">
+                    <label class="form_question">Employee Photo:</label>
+                    <input type="file" id="photo" accept=".jpg,.jpeg" required>
+                </div>
+
+                <div class="child">
+                    <label class="form_question">Address Proof:</label>
+                    <input type="file" id="addressProof" accept=".pdf,.jpg,.jpeg" required>
+                </div>
+
+                <div class="buttonshi">
+                <button type="submit" id="submitBtn">Add New Employee</button>
+                <button type="button" id="cancelBtn" onclick="cancelEdit()" style="display:none; background: #ffffff; color: #97144d; border: 2px solid #97144d; padding: 14px 28px; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; width: 250px; height: 50px; margin-left: 15px;">Cancel</button>
+                </div>
+
+            </form>
+
+            
+
+        </div>
+
+        </div> <!--Container div-->
+
+    </body>
+    </html>
+
+    <script>
+
+let editingId = null;
+
+// Convert file input to Base64 string
+function toBase64(fileInput)
+{
+    return new Promise((resolve) =>
+    {
+        if(!fileInput.files[0])
+        {
+            resolve(null);
+            return;
+        }
+        let reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.readAsDataURL(fileInput.files[0]);
+    });
+}
+
+document.getElementById("employeeForm").addEventListener("submit", async function(event)
+{
+    event.preventDefault(); // prevent default form submission since handler is async
+    let name = document.getElementById("name").value;
+    let pincode = document.getElementById("pincode").value;
+    let pan = document.getElementById("pan").value;
+    let hobbies=document.getElementById("hobbies").value;
+    let add1=document.getElementById("address1").value
+    let add2=document.getElementById("address2").value
+    let city=document.getElementById("city").value
+
+    let isValid = true;
+
+    if(name.length < 2)
+    {
+        alert("Name must contain at least 2 characters");
+        isValid=false;
+    }
+
+    if(name.trim() === "") //makes sure name is not empty since trim removes spaces
+    {
+        alert("Name cannot be empty");
+        isValid=false;
+    }
+
+    if(hobbies.trim() === "")
+    {
+        alert("Hobbies cannot be empty");
+        isValid=false;
+    }
+
+    if(add1.trim() ==="" || add2.trim() ==="" || city.trim() ==="")
+    {
+        alert("Address cannot be empty");
+        isValid=false;
+    }
+
+    if(pincode.length != 6) // instead of doing minlegth max length im doing this
+    {
+        alert("Pincode must be 6 digits");
+        isValid=false;
+    }
+
+    let panPattern = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
+
+    if(!panPattern.test(pan))  // make sure pattern matches
+    {
+        alert("Invalid PAN Format");
+        isValid=false;
+    }
+
+        if(!isValid)
+    {
+        event.preventDefault();
+        return; // stops the code from going to the api calls if its not valid
+    }
+
+
+    // api calls 
+
+    // Convert files to Base64
+    let photoBase64 = await toBase64(document.getElementById("photo"));
+    let proofBase64 = await toBase64(document.getElementById("addressProof"));
+
+    // If editing and no new file selected, keep existing data
+    if(editingId && !photoBase64) photoBase64 = document.getElementById("photo").dataset.existing || null;
+    if(editingId && !proofBase64) proofBase64 = document.getElementById("addressProof").dataset.existing || null;
+
+    let employee =
+{
+    name: name,
+    birthdate: document.getElementById("birthdate").value,
+    gender: document.getElementById("gender").value,
+    hobbies: hobbies,
+    address1: add1,
+    address2: add2,
+    city: city,
+    pincode: pincode,
+    pan: pan,
+    photo: photoBase64,
+    addressProof: proofBase64
+};
+
+console.log("Submitting employee payload:", employee);
+
+let apiUrl = "http://localhost:8080/api/employees";
+let method = "POST";
+
+if(editingId)
+{
+    apiUrl = `http://localhost:8080/api/employees/${editingId}`;
+    method = "PUT";
+}
+
+fetch(apiUrl,
+{
+    method: method,
+
+    headers:
+    {
+        "Content-Type": "application/json"
+    },
+
+    body: JSON.stringify(employee)
+})
+.then(response => response.json())
+
+.then(data =>
+{
+    if(data){
+        console.log(editingId ? "Employee Updated:" : "Employee Added:", data);
+    }
+    alert(editingId ? "Employee Updated Successfully" : "Employee Added Successfully");
+    document.getElementById("employeeForm").reset();
+    if(editingId)
+    {
+        window.location.href = "page2.html";
+    }
+})
+
+.catch(error =>
+{
+    console.log("Error:", error);
+});
+
+});
+
+// EDIT MODE 
+
+function checkEditMode()
+{
+    let params = new URLSearchParams(window.location.search);
+
+    if(params.get("edit") === "true")
+    {
+        editingId = params.get("empId");
+
+        // Fill form fields with the employee data
+        document.getElementById("name").value = params.get("name") || "";
+        document.getElementById("birthdate").value = params.get("birthdate") || "";
+        document.getElementById("hobbies").value = params.get("hobbies") || "";
+        document.getElementById("address1").value = params.get("address1") || "";
+        document.getElementById("address2").value = params.get("address2") || "";
+        document.getElementById("city").value = params.get("city") || "";
+        document.getElementById("pincode").value = params.get("pincode") || "";
+        document.getElementById("pan").value = params.get("pan") || "";
+
+        // Set gender dropdown
+        let genderSelect = document.getElementById("gender");
+        let genderVal = params.get("gender");
+        for(let i = 0; i < genderSelect.options.length; i++)
+        {
+            if(genderSelect.options[i].value === genderVal)
+            {
+                genderSelect.selectedIndex = i;
+                break;
+            }
+        }
+
+        // Switch button text and show cancel
+        document.getElementById("submitBtn").textContent = "Update Data";
+        document.getElementById("cancelBtn").style.display = "inline-block";
+
+        // Make file inputs optional when editing (user may not want to re-upload)
+        document.getElementById("photo").removeAttribute("required");
+        document.getElementById("addressProof").removeAttribute("required");
+
+        // Fetch existing file data from API so we can keep it if user doesn't re-upload
+        fetch("http://localhost:8080/api/employees")
+        .then(r => r.json())
+        .then(data =>
+        {
+            let emp = data.find(e => e.empId == editingId);
+            if(emp)
+            {
+                document.getElementById("photo").dataset.existing = emp.photo || "";
+                document.getElementById("addressProof").dataset.existing = emp.addressProof || "";
+            }
+        });
+
+        // Update page title
+        document.querySelector("h1").textContent = "Update Employee";
+    }
+}
+
+function cancelEdit()
+{
+    // Clear URL params and reset form
+    window.location.href = "index.html";
+}
+
+checkEditMode();
+</script>
+
+
+

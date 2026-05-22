@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>View Employees</title>
+
+    <style>
+        body
+        {
+            margin: 0;
+            width: 100%;
+            background: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .navbar
+        {
+            height: 50px;
+            display: flex;
+            justify-content:center;
+            align-items: center;
+            gap: 100px;
+            margin: 0;
+            border: none;
+            border-radius: 0;
+            background: #97144d;
+        }
+        .navbar a
+        {
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: bold;
+            padding: 0.5%;
+            color: white;
+            transition: 0.3s;
+        }
+        .navbar a:hover
+        {
+            transform: translateY(-3px) scale(1.2);
+            color: #d1d5db;
+        }
+        .container 
+        {
+            width: 90%;
+            max-width: 1400px;
+            margin: 40px auto;
+            background: #f5f5f5;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+        h1
+        {
+            margin: 0;
+            text-align: center;
+            background: transparent;
+            font-size: 2.2rem;
+            color: #97144d;
+            letter-spacing: 1px;
+            margin-bottom: 40px;
+            padding: 12px 0;
+            border: none;
+            border-bottom: 3px solid #97144d;
+            border-radius: 0;
+        }
+
+        /* Table Styles */
+        .table-wrapper
+        {
+            overflow-x: auto;
+        }
+
+        table
+        {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 15px;
+        }
+
+        thead
+        {
+            background: #97144d;
+            color: white;
+        }
+
+        thead th
+        {
+            padding: 14px 12px;
+            text-align: left;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+
+        tbody tr
+        {
+            border-bottom: 1px solid #e0e0e0;
+            transition: background 0.2s ease;
+        }
+
+        tbody tr:hover
+        {
+            background: rgba(151, 20, 77, 0.08);
+        }
+
+        tbody td
+        {
+            padding: 12px;
+            color: #333333;
+            vertical-align: middle;
+        }
+
+        /* Row selection */
+        tbody tr.selected
+        {
+            background: rgba(151, 20, 77, 0.15);
+            border-left: 4px solid #97144d;
+        }
+
+        /* Action Buttons */
+        .actions-cell
+        {
+            display: flex;
+            gap: 12px;
+            white-space: nowrap;
+        }
+
+        .action-btn
+        {
+            padding: 8px 18px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .edit-btn
+        {
+            background: linear-gradient(to right, #97144d, #c94f7c);
+            color: white;
+            box-shadow: 0 2px 8px rgba(151, 20, 77, 0.25);
+        }
+        .edit-btn:hover
+        {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(151, 20, 77, 0.35);
+        }
+
+        .delete-btn
+        {
+            background: #ffffff;
+            color: #97144d;
+            border: 2px solid #97144d;
+        }
+        .delete-btn:hover
+        {
+            background: #97144d;
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .action-btn:active
+        {
+            transform: scale(0.96);
+        }
+
+        /* Empty state */
+        .empty-state
+        {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999999;
+            font-size: 18px;
+        }
+
+        /* Loading state */
+        .loading
+        {
+            text-align: center;
+            padding: 60px 20px;
+            color: #97144d;
+            font-size: 18px;
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+    <nav class="navbar">
+        <a href="index.html">Home</a>
+        <a href="page2.html">View Table</a>
+        <a href="#">About Us</a>
+        <a href="#">Contact Us</a>
+    </nav>
+
+    <div class="container">
+
+        <h1>Employee Records</h1>
+
+        <div class="table-wrapper">
+            <div id="loadingMsg" class="loading">Loading employee data...</div>
+
+            <table id="employeeTable" style="display: none;">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Photo</th>
+                        <th>Date of Birth</th>
+                        <th>Gender</th>
+                        <th>Hobbies</th>
+                        <th>Address</th>
+                        <th>City</th>
+                        <th>Pincode</th>
+                        <th>PAN</th>
+                        <th>Proof</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                </tbody>
+            </table>
+
+            <div id="emptyMsg" class="empty-state" style="display: none;">
+                No employees found. <a href="index.html" style="color: #97144d; font-weight: 600;">Add one here.</a>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+<script>
+
+// Opens a Base64 data URI as a Blob in a new tab
+function viewFile(base64Data)
+{
+    // Split "data:image/jpeg;base64,XXXX" into parts
+    let parts = base64Data.split(',');
+    let mime = parts[0].match(/:(.*?);/)[1];
+    let byteString = atob(parts[1]);
+    let byteArray = new Uint8Array(byteString.length);
+    for(let i = 0; i < byteString.length; i++)
+    {
+        byteArray[i] = byteString.charCodeAt(i);
+    }
+    let blob = new Blob([byteArray], { type: mime });
+    let url = URL.createObjectURL(blob);
+    window.open(url, '_blank');
+}
+
+// Store employee data for proof viewing
+let employeeData = [];
+
+// Fetch and display all employees
+function loadEmployees()
+{
+    fetch("http://localhost:8080/api/employees")
+    .then(response => response.json())
+    .then(data =>
+    {
+        employeeData = data;
+        document.getElementById("loadingMsg").style.display = "none";
+
+        if(data.length === 0)
+        {
+            document.getElementById("emptyMsg").style.display = "block";
+            document.getElementById("employeeTable").style.display = "none";
+            return;
+        }
+
+        document.getElementById("employeeTable").style.display = "table";
+        let tbody = document.getElementById("tableBody");
+        tbody.innerHTML = "";
+
+        data.forEach(emp =>
+        {
+            let row = document.createElement("tr");
+
+            // Combine address for display
+            let fullAddress = emp.address1;
+            if(emp.address2) fullAddress += ", " + emp.address2;
+
+            row.innerHTML = `
+                <td>${emp.empId}</td>
+                <td>${emp.name}</td>
+                <td>${emp.photo ? `<img src="${emp.photo}" style="width:40px; height:40px; border-radius:50%; object-fit:cover;">` : '-'}</td>
+                <td>${emp.birthdate}</td>
+                <td>${emp.gender === 'M' ? 'Male' : 'Female'}</td>
+                <td>${emp.hobbies}</td>
+                <td>${fullAddress}</td>
+                <td>${emp.city}</td>
+                <td>${emp.pincode}</td>
+                <td>${emp.pan}</td>
+                <td>${emp.addressProof ? `<a href="#" class="view-proof-link" data-emp-id="${emp.empId}" style="color:#97144d; font-weight:600; cursor:pointer;">View</a>` : '-'}</td>
+                <td class="actions-cell">
+                    <button class="action-btn edit-btn" onclick="editEmployee(${emp.empId})">Edit</button>
+                    <button class="action-btn delete-btn" onclick="deleteEmployee(${emp.empId})">Delete</button>
+                </td>
+            `;
+
+            tbody.appendChild(row);
+        });
+
+        // Attach click listeners for View proof links
+        document.querySelectorAll(".view-proof-link").forEach(link =>
+        {
+            link.addEventListener("click", function(e)
+            {
+                e.preventDefault();
+                let empId = parseInt(this.dataset.empId);
+                let emp = employeeData.find(e => e.empId === empId);
+                if(emp && emp.addressProof)
+                {
+                    viewFile(emp.addressProof);
+                }
+            });
+        });
+    })
+    .catch(error =>
+    {
+        console.log("Error fetching employees:", error);
+        document.getElementById("loadingMsg").textContent = "Failed to load data.";
+    });
+}
+
+
+// Delete employee
+function deleteEmployee(id)
+{
+    if(!confirm("Are you sure you want to delete this employee?"))
+    {
+        return;
+    }
+
+    fetch(`http://localhost:8080/api/employees/${id}`,
+    {
+        method: "DELETE"
+    })
+    .then(() =>
+    {
+        alert("Employee deleted successfully");
+        loadEmployees(); // refresh table
+    })
+    .catch(error =>
+    {
+        console.log("Error deleting employee:", error);
+        alert("Failed to delete employee");
+    });
+}
+
+
+// Edit employee - redirect to index.html with data in URL params
+function editEmployee(id)
+{
+    // First fetch the specific employee's data from the table
+    fetch("http://localhost:8080/api/employees")
+    .then(response => response.json())
+    .then(data =>
+    {
+        let emp = data.find(e => e.empId === id);
+        if(!emp)
+        {
+            alert("Employee not found");
+            return;
+        }
+
+        // Build URL with employee data as query params
+        let params = new URLSearchParams({
+            edit: "true",
+            empId: emp.empId,
+            name: emp.name,
+            birthdate: emp.birthdate,
+            gender: emp.gender,
+            hobbies: emp.hobbies,
+            address1: emp.address1,
+            address2: emp.address2 || "",
+            city: emp.city,
+            pincode: emp.pincode,
+            pan: emp.pan
+        });
+
+        window.location.href = "index.html?" + params.toString();
+    })
+    .catch(error =>
+    {
+        console.log("Error:", error);
+    });
+}
+
+
+// Load on page open
+loadEmployees();
+
+</script>
+
+</html>
