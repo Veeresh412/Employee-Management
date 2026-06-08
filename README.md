@@ -1,4 +1,4 @@
-# Employee Management System 🏢 (wrote this using AI cause im lazy)
+# Employee Management System 🏢 
 
 A full-stack web application built to manage employee records. This project demonstrates a complete client-server architecture using a Spring Boot backend, a PostgreSQL database, and a responsive Vanilla HTML/CSS/JS frontend.
 
