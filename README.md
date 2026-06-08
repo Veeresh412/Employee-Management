@@ -1,8 +1,8 @@
-# Employee Management System 🏢 
+# Employee Management System 
 
 A full-stack web application built to manage employee records. This project demonstrates a complete client-server architecture using a Spring Boot backend, a PostgreSQL database, and a responsive Vanilla HTML/CSS/JS frontend.
 
-## 🚀 Technologies Used
+##  Technologies Used
 
 ### Backend
 * **Java 17+**
@@ -15,7 +15,7 @@ A full-stack web application built to manage employee records. This project demo
 * **Vanilla CSS3** (Custom styling, Flexbox/Grid, Axis Bank brand colors)
 * **Vanilla JavaScript** (Fetch API, Async/Await, DOM manipulation)
 
-## ✨ Features
+##  Features
 
 * **Full CRUD Functionality:** Create, Read, Update, and Delete employee records.
 * **RESTful API:** Clean API endpoints following REST conventions (`GET`, `POST`, `PUT`, `DELETE`).
@@ -23,7 +23,7 @@ A full-stack web application built to manage employee records. This project demo
 * **Dynamic Edit Mode:** A single form intelligently switches between "Add" and "Update" modes using URL parameters to pre-fill data.
 * **Interactive UI:** Features hover effects, clean tables, and responsive forms without relying on external CSS frameworks.
 
-## 📂 Project Structure
+##  Project Structure
 
 The project is divided into two main parts:
 
@@ -38,7 +38,7 @@ The project is divided into two main parts:
 | `PUT` | `/api/employees/{id}` | Update an existing employee |
 | `DELETE` | `/api/employees/{id}` | Delete an employee by ID |
 
-## 🛠️ How to Run Locally
+##  How to Run Locally
 
 ### Prerequisites
 * Java Development Kit (JDK) installed.
