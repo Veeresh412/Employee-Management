@@ -1,4 +1,14 @@
-# Maven wrapper
-/mvnw text eol=lf
-*.cmd text eol=crlf
+# Force Java detection everywhere
+*.java linguist-language=Java
+demo/src/main/java/**/*.java linguist-language=Java
 
+# Mark frontend as vendored to reduce its weight
+Frontend/** linguist-vendored
+
+# Maven
+pom.xml linguist-language=Maven POM
+*.pom linguist-language=Maven POM
+
+# Exclude build directories
+target/** linguist-vendored
+build/** linguist-vendored
