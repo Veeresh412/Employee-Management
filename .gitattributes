@@ -1,14 +1,14 @@
-# Force Java detection everywhere
-*.java linguist-language=Java
-demo/src/main/java/**/*.java linguist-language=Java
-
-# Mark frontend as vendored to reduce its weight
+# Vendored code - exclude from stats
 Frontend/** linguist-vendored
 
-# Maven
-pom.xml linguist-language=Maven POM
-*.pom linguist-language=Maven POM
+# Force detection of Java as primary language
+*.java linguist-language=Java linguist-detectable
+demo/**/*.java linguist-language=Java linguist-detectable
 
-# Exclude build directories
-target/** linguist-vendored
-build/** linguist-vendored
+# Lower weight for HTML/CSS
+*.html linguist-language=HTML
+*.css linguist-language=CSS
+
+# Mark config files
+pom.xml linguist-language=XML
+*.properties linguist-language=INI
