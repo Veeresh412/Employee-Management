@@ -2,14 +2,3 @@
 /mvnw text eol=lf
 *.cmd text eol=crlf
 
-# Explicitly mark Java files as linguist-detectable
-*.java linguist-language=Java
-
-# Frontend files (if you want to weight them differently)
-/Frontend/** linguist-vendored=false
-
-# Exclude build artifacts from language detection
-target/** linguist-vendored
-build/** linguist-vendored
-*.class linguist-vendored
-pom.xml linguist-language=XML
